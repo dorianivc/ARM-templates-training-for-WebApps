@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "App Service Plan Name": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the App Service Plan"
+            }
+        },
+        "WebApp Name": {
+            "type": "string",
+            "metadata": {
+                "description": "WebApp name"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('App Service Plan Name')]",
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "F1",
+                "capacity": 1
+            },
+            "tags": {
+                "displayName": "[parameters('App Service Plan Name')]"
+            },
+            "properties": {
+                "name": "[parameters('App Service Plan Name')]"
+            }
+        }, {
+             "name":"[parameters('WebApp Name')]",
+             "type": "Microsoft.Web/sites",
+             "apiVersion": "2018-11-01",
+             "location": "[resourceGroup().location]",
+             "dependsOn": [
+                 "[resourceId('Microsoft.Web/serverfarms', parameters('App Service Plan Name'))]"
+             ],
+             "properties": {
+                 "name":"[parameters('WebApp Name')]",
+                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('App Service Plan Name'))]"
+                
+             }
+         }
+    ],
+    "outputs": {}
+}
