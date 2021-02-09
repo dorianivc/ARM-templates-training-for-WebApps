@@ -6,7 +6,9 @@
             "type": "string",
             "metadata": {
                 "description": "The name of the App Service Plan"
-            }
+            }, "allowedValues": [
+                
+            ]
         },
         "WebApp Name": {
             "type": "string",

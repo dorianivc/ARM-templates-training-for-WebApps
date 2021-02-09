@@ -13,11 +13,14 @@
             "metadata": {
                 "description": "WebApp name"
             }
-        }
+        },
+        "Date" : { "type": "string",
+         "defaultValue": "[concat('-',utcNow('yyyy-MM-dd'))]"
+        } 
     },
     "functions": [],
     "variables": {
-        "WebApp Name": "[concat(parameters('WebApp Name'),'-28-01-21')]"
+        "WebApp Name": "[concat(parameters('WebApp Name'),parameters('Date'))]"
     },
     "resources": [
         {
